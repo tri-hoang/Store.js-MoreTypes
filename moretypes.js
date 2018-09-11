@@ -1,4 +1,4 @@
-var namespace = "more_types";
+var namespace = "more_types_type";
 
 module.exports = moreTypes;
 

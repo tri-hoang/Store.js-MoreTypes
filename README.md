@@ -20,6 +20,9 @@ var moreTypes = require("store.js-moretypes")
 store.addPlugin(moreTypes)
 ```
 
+Note: Please refrain from using `more_types_type` as key in your program
+
+
 Usage
 -----------
 Basic usage example
