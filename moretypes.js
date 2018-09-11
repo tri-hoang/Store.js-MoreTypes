@@ -40,23 +40,26 @@ function moreTypes() {
   
   function _reviver(key, value) {
     var type = value[namespace];
-    if (type !== undefined && type in types && 'reviver' in types[type]) {
-      value = types[type].reviver(value['data']);
+    if (type !== undefined && type in types) {
+      if ('reviver' in types[type])    
+        value = types[type].reviver(value['data']);
+      else
+        value = value['data']
     }
     return value;
   }
   
-	function more_types_deserialize(super_fn, strVal, defaultVal) {
-		if (!strVal) { return defaultVal }
-		// It is possible that a raw string value has been previously stored
-		// in a storage without using store.js, meaning it will be a raw
-		// string value instead of a JSON serialized string. By defaulting
-		// to the raw string value in case of a JSON parse error, we allow
-		// for past stored values to be forwards-compatible with store.js
-		var val = '';
-		try { val = JSON.parse(strVal, _reviver) }
-		catch(e) { val = strVal }
+  function more_types_deserialize(super_fn, strVal, defaultVal) {
+    if (!strVal) { return defaultVal }
+    // It is possible that a raw string value has been previously stored
+    // in a storage without using store.js, meaning it will be a raw
+    // string value instead of a JSON serialized string. By defaulting
+    // to the raw string value in case of a JSON parse error, we allow
+    // for past stored values to be forwards-compatible with store.js
+    var val = '';
+    try { val = JSON.parse(strVal, _reviver) }
+    catch(e) { val = strVal }
 
-		return (val !== undefined ? val : defaultVal);
-	}
+    return (val !== undefined ? val : defaultVal);
+  }
 }
